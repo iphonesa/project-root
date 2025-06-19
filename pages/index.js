@@ -28,7 +28,7 @@ export default function ChatPopup() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: trimmed }),
+        body: JSON.stringify({ message: trimmed, history: chat }),
       });
       const data = await res.json();
       setChat((prev) => [...prev, { sender: 'DigiBuddy', text: data.reply }]);
@@ -40,7 +40,6 @@ export default function ChatPopup() {
 
   return (
     <>
-      {/* Chat Icon Button */}
       <button
         onClick={() => setOpen((o) => !o)}
         style={{
@@ -63,7 +62,6 @@ export default function ChatPopup() {
         💬
       </button>
 
-      {/* Chat Popup */}
       {open && (
         <div
           style={{
@@ -83,7 +81,6 @@ export default function ChatPopup() {
           aria-modal="true"
           aria-label="DigiBuddy Chatbot"
         >
-          {/* Chat Messages */}
           <div
             style={{
               flex: 1,
@@ -123,7 +120,6 @@ export default function ChatPopup() {
             <div ref={chatEndRef} />
           </div>
 
-          {/* Input Area */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
